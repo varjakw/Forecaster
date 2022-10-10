@@ -22,3 +22,7 @@ document
 
 Vue automatically tracks JavaScript state changes
 - efficiently updates the DOM using a virtual DOM
+
+## Moustache Syntax
+
+## V-Directives
