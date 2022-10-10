@@ -1,4 +1,4 @@
-# ReactiveInternetApp
+# Forecaster WebApp
 Assignment 1 for Internet Applications module. Written in Vue.
 
 You are asked to produce an application that inputs the city that someone is planning
