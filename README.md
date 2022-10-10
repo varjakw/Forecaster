@@ -19,3 +19,6 @@ Dependencies update automatically.
 document
 - Simply updating the value of a JavaScript variable will cause the
 ‘linked’ HTML variables to ‘React’ or automatically update
+
+Vue automatically tracks JavaScript state changes
+- efficiently updates the DOM using a virtual DOM
