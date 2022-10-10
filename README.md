@@ -13,6 +13,9 @@ bring an umbrella.
 - Give a summary table for the next 4 days showing: Temperature, Wind Speed and
 Rainfall level
 
+When you request the weather data for a city, it will return you the Longitude and
+Latitude of the city. You can then use these in the AIR Pollution API to get the PM2_5 forecast for the next 5 days. If this exceeds 10, then you should advise the user to wear a mask.
+
 ## Reactive Frameworks
 Dependencies update automatically.
 - Variables within JavaScript are ‘linked’ to variables within the HTML
