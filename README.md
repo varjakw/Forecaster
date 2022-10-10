@@ -12,3 +12,10 @@ bring an umbrella.
 24C).
 - Give a summary table for the next 4 days showing: Temperature, Wind Speed and
 Rainfall level
+
+## Reactive Frameworks
+Dependencies update automatically.
+- Variables within JavaScript are ‘linked’ to variables within the HTML
+document
+- Simply updating the value of a JavaScript variable will cause the
+‘linked’ HTML variables to ‘React’ or automatically update
