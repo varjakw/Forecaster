@@ -49,7 +49,7 @@ from JavaScript
 
 How to make an API call
 
-## API call
+## OpenWeatherMap API call
 ```https://api.openweathermap.org/data/3.0/onecall?lat=33.44&lon=-94.04&exclude=hourly,daily&appid={API key}```
 
 ## Parameters
@@ -66,6 +66,13 @@ How to make an API call
     - alerts
 - units. Optional. Units of measurement. standard, metric and imperial units are available. If you do not use the units parameter, standard units will be applied by default. Learn more
 - lang. Optional. You can use the lang parameter to get the output in your language.
+
+## Geocoding API
+Used to convert user's inputted city into the latitude and longitude values used in the OpenWeatherMap API call.
+
+```http://api.openweathermap.org/geo/1.0/direct?q={city name}&limit={limit}&appid={API key}```
+
+Take ```lat``` and ```lon``` attributes from the response and use those in the forecast call.
 
 # Note
 
