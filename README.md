@@ -65,4 +65,8 @@ How to make an API call
     - daily
     - alerts
 - units. Optional. Units of measurement. standard, metric and imperial units are available. If you do not use the units parameter, standard units will be applied by default. Learn more
-- lang. Optional. You can use the lang parameter to get the output in your language. Learn more
+- lang. Optional. You can use the lang parameter to get the output in your language.
+
+# Note
+
+Does not work with Firefox. Use Chrome.
