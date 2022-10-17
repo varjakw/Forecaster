@@ -9,9 +9,9 @@
       }
     }
   </script>
-  
+  <body>
     <div id="app">
-        <h3 class="text-center">Forecaster</h3>
+        <h3 class="text-center" style="font-family:Courier; color:purple; font-size: 300%; "><strong>FORECASTER</strong></h3>
         <div class="columns medium-4">
             <div class="card">
 
@@ -50,7 +50,7 @@
             </div>
         </div>
     </div>
-  
+  </body>
 
   <script type="module">
     import { createApp } from 'vue'
@@ -66,13 +66,38 @@
         }
       },
       functions:{
+        async doRequest() {
+          //take city input, do geocode
+          //save json in same filename1 per request so we dont store every one
+          //extract lat and lon from json
+          //do weather with lat and lon
+          //save json in same filename2 per request so we dont store every one
+          //extract temp, rain, wind from json
+          
+        }
 
       }
     }).mount('#app')
   </script>
   
- 
-	
+  <style>
+  #app {
+    background-image: url(https://images.unsplash.com/photo-1532135468830-e51699205b70?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=388&q=80);
+    background-size: 640px 958px;
+    background-position: bottom;
+    transition: 0.4s;
+}
+
+.body {
+  font-family: sans-serif;
+  font-size: 1.3rem;
+  background-image: radial-gradient(
+    circle farthest-corner at 92.3% 71.5%,
+    rgba(83, 138, 214, 1) 0%,
+    rgba(134, 231, 214, 1) 90%
+  );
+}
+</style>
 
  
 
