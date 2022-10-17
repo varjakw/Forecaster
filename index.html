@@ -1,4 +1,8 @@
-<script type="importmap">
+
+  <title>Forecaster</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/foundation/6.7.4/css/foundation.min.css"/>
+ 
+  <script type="importmap">
     {
       "imports": {
         "vue": "https://unpkg.com/vue@3/dist/vue.esm-browser.js"
@@ -6,18 +10,71 @@
     }
   </script>
   
-  <div id="app">{{ message }}</div>
+    <div id="app">
+        <h3 class="text-center">Forecaster</h3>
+        <div class="columns medium-4">
+            <div class="card">
+
+              <div class="card-section">
+                <p> Please enter location </p>
+                <form class="Request" v-on:submit.prevent="doRequest">
+                  <input v-model="Request" type="text" class="Request__input" required placeholder="Enter Location...">
+                  <input type="submit" class="Request__submit" value="Request">
+                </form>
+            </div>
+            <div class="card-divider">
+                <p>  You entered: {{ location }} </p>
+            </div>
+ 
+                    <div class="card-section">
+                        <p> Temperature </p>
+                    </div>
+                    <div class="card-divider">
+                        <p>  {{ temperature }} </p>
+                    </div>
+
+                    <div class="card-section">
+                      <p> Rainfall </p>
+                  </div>
+                  <div class="card-divider">
+                      <p>  {{ rainfall }} </p>
+                  </div>
+
+                  <div class="card-section">
+                    <p> Windspeed </p>
+                </div>
+                <div class="card-divider">
+                    <p>  {{ windspeed }} </p>
+                </div>
+ 
+            </div>
+        </div>
+    </div>
   
+
   <script type="module">
     import { createApp } from 'vue'
+
   //using ES Module syntax
-    createApp({
+    const app = createApp({
       data() {
         return {
-          message: 'Hello Vue!'
+            temperature: '11',
+            rainfall: '0.4',
+            windspeed: '24',
+            location: 'Dublin'
         }
+      },
+      functions:{
+
       }
     }).mount('#app')
   </script>
-  <!-- ES modules dont work over file:// so we must use a local HTTP server -->
+  
+ 
+	
+
+ 
+
+
   
