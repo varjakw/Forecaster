@@ -72,7 +72,7 @@ Used to convert user's inputted city into the latitude and longitude values used
 
 ```http://api.openweathermap.org/geo/1.0/direct?q={city name}&limit={limit}&appid={API key}```
 
-Take ```lat``` and ```lon``` attributes from the response and use those in the forecast call.
+Take ```lat``` and ```lon``` fields from the response and use those in the forecast call.
 
 # Note
 
