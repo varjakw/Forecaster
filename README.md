@@ -54,16 +54,15 @@ https://api.openweathermap.org/data/3.0/onecall?lat={lat}&lon={lon}&exclude={par
 
 ## Parameters
 - lat, lon
-- - Geographical coordinates (latitude, longitude). If you need the geocoder to automatic convert city names and zip-codes to geo coordinates and the other way around, please use our Geocoding API.
+  - Geographical coordinates (latitude, longitude). If you need the geocoder to automatic convert city names and zip-codes to geo coordinates and the other way around, please use our Geocoding API.
 - appid 
-- - Your unique API key (you can always find it on your account page under the "API key" tab)
+  - Your unique API key (you can always find it on your account page under the "API key" tab)
 - exclude Optional parameter. By using this parameter you can exclude some parts of the weather data from the API response. It should be a comma-delimited list (without spaces).
-- - Available values: 
-- - - current
-- - - minutely
-- - - hourly
-- - - daily
-- - - alerts
-
+  - Available values: 
+    - current
+    - minutely
+    - hourly
+    - daily
+    - alerts
 - units. Optional. Units of measurement. standard, metric and imperial units are available. If you do not use the units parameter, standard units will be applied by default. Learn more
 - lang. Optional. You can use the lang parameter to get the output in your language. Learn more
