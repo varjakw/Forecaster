@@ -28,6 +28,19 @@ Vue automatically tracks JavaScript state changes
 
 ## Restful APIs
 
+Representational State Transfer APIs.
+
+- Server doesn't maintain state information for every client. Therefore it's stateless in the client-server architecture
+- Servers can extend client functionality by download
+
 ## Moustache Syntax
 
+The HTML uses {{ Syntax }}
+- Moustache syntax
+- which allows variable
+values to be picked up
+from JavaScript
+
 ## V-Directives
+- Directives control HTML layout. Alter shape of DOM by adding elements.
+- Vue has its own directives for things like changing the contents of text elements.
