@@ -14,8 +14,8 @@
         <h3 class="text-center" style="font-family:Courier; color:purple; font-size: 300%; "><strong>FORECASTER</strong></h3>
         <div class="columns medium-4">
             <div class="card">
-
               <div class="card-section">
+
                  <!-- Search -->
       <div class="search__form">
         <form class="search" v-on:submit.prevent="doRequest">
@@ -24,6 +24,42 @@
         </form>
       </div>
       <!--search ends-->
+       <!--table-->
+       <table id="forecast">
+        <tr>
+          <th>Temperature (4-day)</th>
+          <th>Rainfall (4-day)</th>
+          <th>Windspeed (4-day)</th>
+          <th>Air Pollution (4-day)</th>
+        </tr>
+        <tr>
+          <td>{{tempDay1}}</td>
+          <td>{{rainDay1}}</td>
+          <td>{{windDay1}}</td>
+          <td>{{airDay1}}</td>
+        </tr>
+        <tr>
+          <td>{{tempDay2}}</td>
+          <td>{{rainDay2}}</td>
+          <td>{{windDay2}}</td>
+          <td>{{airDay2}}</td>
+        </tr>
+        <tr>
+          <td>{{tempDay3}}</td>
+          <td>{{rainDay3}}</td>
+          <td>{{windDay3}}</td>
+          <td>{{airDay3}}</td>
+        </tr>
+        <tr>
+          <td>{{tempDay4}}</td>
+          <td>{{rainDay4}}</td>
+          <td>{{windDay4}}</td>
+          <td>{{airDay4}}</td>
+        </tr>
+      
+      </table>
+      <!--end of table-->
+
             </div>
             <div class="card-divider">
               <p>   {{ error }} </p>
@@ -34,70 +70,6 @@
                 {{ umbrella }} <br>
                 {{ air }}</p>
             </div>
- 
-                    <div class="card-section">
-                        <p> <b>Temperature(4-day)</b> </p>
-                    </div>
-                    <div class="card-divider">
-                        <p>  {{ tempDay1 }} </p>
-                    </div>
-                    <div class="card-divider">
-                      <p>  {{ tempDay2 }} </p>
-                  </div>
-                  <div class="card-divider">
-                    <p>  {{ tempDay3 }} </p>
-                </div>
-                <div class="card-divider">
-                  <p>  {{ tempDay4 }} </p>
-              </div>
-
-                    <div class="card-section">
-                      <p> <b>Rainfall(4-day)</b> </p>
-                  </div>
-                  <div class="card-divider">
-                      <p>  {{ rainDay1 }} </p>
-                  </div>
-                  <div class="card-divider">
-                    <p>  {{ rainDay2 }} </p>
-                </div>
-                <div class="card-divider">
-                  <p>  {{ rainDay3 }} </p>
-              </div>
-              <div class="card-divider">
-                <p>  {{ rainDay4 }} </p>
-            </div>
-
-                  <div class="card-section">
-                    <p> <b>Windspeed(4-day)</b> </p>
-                </div>
-                <div class="card-divider">
-                    <p>  {{ windDay1}} </p>
-                </div>
-                <div class="card-divider">
-                  <p>  {{ windDay2}} </p>
-              </div>
-              <div class="card-divider">
-                <p>  {{ windDay3}} </p>
-            </div>
-            <div class="card-divider">
-              <p>  {{ windDay4}} </p>
-          </div>
-          <div class="card-section">
-            <p> <b>Air Pollution(4-day)</b> </p>
-        </div>
-        <div class="card-divider">
-          <p>  {{ airDay1}} </p>
-      </div>
-      <div class="card-divider">
-        <p>  {{ airDay2}} </p>
-    </div>
-    <div class="card-divider">
-      <p>  {{ airDay3}} </p>
-  </div>
-  <div class="card-divider">
-    <p>  {{ airDay4}} </p>
-</div>
- 
             </div>
         </div>
     </div>
@@ -309,6 +281,31 @@
   transition: 0.2s ease;
   cursor: pointer;
   background-color: rgb(121, 170, 206);
+}
+
+/*a nice table*/
+
+#forecast {
+  font-family: Arial, Helvetica, sans-serif;
+  border-collapse: collapse;
+  width: 100%;
+}
+
+#forecast td, #forecast th {
+  border: 1px solid #ddd;
+  padding: 8px;
+}
+
+#forecast tr:nth-child(even){background-color: #f2f2f2;}
+
+#forecast tr:hover {background-color: #ddd;}
+
+#forecast th {
+  padding-top: 12px;
+  padding-bottom: 12px;
+  text-align: left;
+  background-color: rgb(121, 170, 206);
+  color: white;
 }
 </style>
 
