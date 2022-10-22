@@ -80,3 +80,9 @@ Take ```lat``` and ```lon``` fields from the response and use those in the forec
 # Note
 
 Does not work with Firefox. Use Chrome.
+
+# Running
+
+``cd forecaster``
+``node script.js``
+Then ``http://localhost:3000`` in browser
