@@ -1,7 +1,8 @@
 
-  <title>Forecaster</title>
+<!-- saved from url=(0022)http://localhost:3000/ -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><title>Forecaster</title>
  
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/foundation/6.7.4/css/foundation.min.css"/>
+  <link rel="stylesheet" href="./index_files/foundation.min.css">
 
   <script type="importmap">
     {
@@ -10,72 +11,106 @@
       }
     }
   </script>
-  <h1><strong>FORECASTER</strong></h1>
+  </head><body><h1><strong>FORECASTER</strong></h1>
   
-  <body>
+  
     <div id="app">
         
-        <div class="columns medium-4">
-            <div class="card">
-              <div class="card-section">
-
-                 <!-- Search -->
-      <div class="search__form">
-        <form class="search" v-on:submit.prevent="doRequest">
-          <input v-model="location" type="text" class="search__input" required placeholder="Enter Location">
-          <input type="submit" class="search__submit" value="Search">
-        </form>
-      </div>
-      <!--search ends-->
-       <!--table-->
-       <table id="forecast">
-        <tr>
-          <th>Temperature (4-day)</th>
-          <th>Rainfall (4-day)</th>
-          <th>Windspeed (4-day)</th>
-          <th>Air Pollution (4-day)</th>
-        </tr>
-        <tr>
-          <td>{{tempDay1}}</td>
-          <td>{{rainDay1}}</td>
-          <td>{{windDay1}}</td>
-          <td>{{airDay1}}</td>
-        </tr>
-        <tr>
-          <td>{{tempDay2}}</td>
-          <td>{{rainDay2}}</td>
-          <td>{{windDay2}}</td>
-          <td>{{airDay2}}</td>
-        </tr>
-        <tr>
-          <td>{{tempDay3}}</td>
-          <td>{{rainDay3}}</td>
-          <td>{{windDay3}}</td>
-          <td>{{airDay3}}</td>
-        </tr>
-        <tr>
-          <td>{{tempDay4}}</td>
-          <td>{{rainDay4}}</td>
-          <td>{{windDay4}}</td>
-          <td>{{airDay4}}</td>
-        </tr>
-      
-      </table>
-      <!--end of table-->
-
-            </div>
-            <div class="card-divider">
-                <p>{{ clothes }}<br>
-                {{ umbrella }} <br>
-                {{ air }}</p>
-            </div>
+      <div class="columns medium-4">
+          <div class="card">
             <div class="card-section">
-              <p>   {{ error }} </p>
-          </div>
-            </div>
-        </div>
+
+               <!-- Search -->
+    <div class="search__form">
+      <form class="search" v-on:submit.prevent="doRequest">
+        <input v-model="location" type="text" class="search__input" required placeholder="Enter Location">
+        <input type="submit" class="search__submit" value="Search">
+      </form>
     </div>
-  </body>
+    <!--search ends-->
+     <!--table-->
+     <table id="forecast">
+      <tr>
+        <th>Temperature (4-day)</th>
+        <th>Rainfall (4-day)</th>
+        <th>Windspeed (4-day)</th>
+        <th>Air Pollution (4-day)</th>
+      </tr>
+      <tr>
+        <td>{{tempDay1}}</td>
+        <td>{{rainDay1}}</td>
+        <td>{{windDay1}}</td>
+        <td>{{airDay1}}</td>
+      </tr>
+      <tr>
+        <td>{{tempDay2}}</td>
+        <td>{{rainDay2}}</td>
+        <td>{{windDay2}}</td>
+        <td>{{airDay2}}</td>
+      </tr>
+      <tr>
+        <td>{{tempDay3}}</td>
+        <td>{{rainDay3}}</td>
+        <td>{{windDay3}}</td>
+        <td>{{airDay3}}</td>
+      </tr>
+      <tr>
+        <td>{{tempDay4}}</td>
+        <td>{{rainDay4}}</td>
+        <td>{{windDay4}}</td>
+        <td>{{airDay4}}</td>
+      </tr>
+    
+    </table>
+    <!--end of table-->
+
+          </div>
+          <div class="card-divider">
+              <p>{{ clothes }}<br>
+              {{ umbrella }} <br>
+              {{ air }}</p>
+          </div>
+          <div class="card-section">
+            <p>   {{ error }} </p>
+        </div>
+          </div>
+      </div>
+
+      
+    <h2><strong>THIS DAY IN HISTORY</strong></h2>
+
+       <!--table-->
+     <table id="forecast">
+      <tr>
+        <th>Historical Time</th>
+        <th>Historical Temperature</th>
+        <th>Historical Weather</th>
+
+      </tr>
+      <tr>
+        <th><strong>5 Years Ago</strong></th>
+        <td>{{fivehisttemp}}</td>
+        <td>{{fivehistweather}}</td>
+      </tr>
+      <tr>
+        <th><strong>10 Years Ago</strong></th>
+        <td>{{tenhisttemp}}</td>
+        <td>{{tenhistweather}}</td>
+      </tr>
+      <tr>
+        <th><strong>15 Years Ago</strong></th>
+        <td>{{fifteenhisttemp}}</td>
+        <td>{{fifteenhistweather}}</td>
+      </tr>
+      <tr>
+        <th><strong>20 Years Ago</strong></th>
+        <td>{{twentyhisttemp}}</td>
+        <td>{{twentyhistweather}}</td>
+      </tr>
+    </table>
+    <!--end of table-->
+  </div>
+</body>
 
   <script type="module">
     import { createApp } from 'vue'
@@ -104,6 +139,14 @@
             airDay2: null,
             airDay3: null,
             airDay4: null,
+            fivehisttemp: null,
+            fivehistweather: null,
+            tenhisttemp: null,
+            tenhistweather: null,
+            fifteenhisttemp: null,
+            fifteenhistweather: null,
+            twentyhisttemp: null,
+            twentyhistweather: null,
             location: null,
             error: null
         }
@@ -148,10 +191,10 @@
         this.windDay3 = parsedWeatherData.daily[2].wind_speed + "m/s";
         this.windDay4 = parsedWeatherData.daily[3].wind_speed + "m/s";
 
-        var rain1 = parsedWeatherData.daily[0].temp.day; //[0] refers to day 1 of forecast. do days 1-4
-        var rain2 = parsedWeatherData.daily[1].temp.day;
-        var rain3 = parsedWeatherData.daily[2].temp.day;
-        var rain4 = parsedWeatherData.daily[3].temp.day;
+        var rain1 = parsedWeatherData.daily[0].rain; //[0] refers to day 1 of forecast. do days 1-4
+        var rain2 = parsedWeatherData.daily[1].rain
+        var rain3 = parsedWeatherData.daily[2].rain;
+        var rain4 = parsedWeatherData.daily[3].rain;
 
         this.rainDay1 = rain1 + "mm";
         this.rainDay2 = rain2 + "mm"; 
@@ -198,6 +241,55 @@
         if(air1 > 10 || air2 > 10 || air3 > 10 || air4 > 10){
           this.air = "You should pack a mask due to air pollution";
         }
+        
+
+        //My unique function
+        //"This day in history" weather for the user's given location
+        console.log('Contacting Historical Weather API...');
+
+        const todayunix = parseInt(new Date / 1000); //seconds
+        console.log("today unix: " + todayunix);
+
+        //5 years ago, 157680000s
+        var fiveyearhist = todayunix - 157680000;
+        const fiveResponse = await fetch("https://api.openweathermap.org/data/3.0/onecall/timemachine?lat="+lat+"&lon="+lon+"&units=metric&dt="+fiveyearhist+"&appid="+APIKEY);
+        const fiveHistData = await fiveResponse.json();
+        const stringifiedFiveHistData = JSON.stringify(fiveHistData)
+        var parsedFiveHistData = JSON.parse(stringifiedFiveHistData);
+        console.log(parsedFiveHistData);
+
+        this.fivehisttemp = parsedFiveHistData.data[0].temp+ "℃";
+        this.fivehistweather = parsedFiveHistData.data[0].weather[0].description;
+
+        //10 years ago, 315360000s
+        var tenyearhist = todayunix - 315360000;
+        const tenResponse = await fetch("https://api.openweathermap.org/data/3.0/onecall/timemachine?lat="+lat+"&lon="+lon+"&units=metric&dt="+tenyearhist+"&appid="+APIKEY);
+        const tenHistData = await tenResponse.json();
+        const stringifiedTenHistData = JSON.stringify(tenHistData)
+        var parsedTenHistData = JSON.parse(stringifiedTenHistData);
+
+        this.tenhisttemp = parsedTenHistData.data[0].temp+ "℃";
+        this.tenhistweather = parsedTenHistData.data[0].weather[0].description;
+
+        //15 years ago, 473040000s
+        var fifteenyearhist = todayunix - 473040000;
+        const fifteenResponse = await fetch("https://api.openweathermap.org/data/3.0/onecall/timemachine?lat="+lat+"&lon="+lon+"&units=metric&dt="+fifteenyearhist+"&appid="+APIKEY);
+        const fifteenHistData = await fifteenResponse.json();
+        const stringifiedFifteenHistData = JSON.stringify(fifteenHistData)
+        var parsedFifteenHistData = JSON.parse(stringifiedFifteenHistData);
+
+        this.fifteenhisttemp = parsedFifteenHistData.data[0].temp+ "℃";
+        this.fifteenhistweather = parsedFifteenHistData.data[0].weather[0].description;
+
+        //20 years ago, 630720000s
+        var twentyyearhist = todayunix - 630720000;
+        const twentyResponse = await fetch("https://api.openweathermap.org/data/3.0/onecall/timemachine?lat="+lat+"&lon="+lon+"&units=metric&dt="+twentyyearhist+"&appid="+APIKEY);
+        const twentyHistData = await twentyResponse.json();
+        const stringifiedTwentyHistData = JSON.stringify(twentyHistData)
+        var parsedTwentyHistData = JSON.parse(stringifiedTwentyHistData);
+
+        this.twentyhisttemp = parsedTwentyHistData.data[0].temp+ "℃";
+        this.twentyhistweather = parsedTwentyHistData.data[0].weather[0].description;
         
 
     
@@ -332,3 +424,4 @@
 
 
   
+</body></html>
