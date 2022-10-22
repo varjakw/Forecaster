@@ -67,6 +67,9 @@ How to make an API call
 - units. Optional. Units of measurement. standard, metric and imperial units are available. If you do not use the units parameter, standard units will be applied by default. Learn more
 - lang. Optional. You can use the lang parameter to get the output in your language.
 
+You can see parameter units here:
+https://openweathermap.org/api/one-call-3#parameter
+
 ## Geocoding API
 Used to convert user's inputted city into the latitude and longitude values used in the OpenWeatherMap API call.
 
