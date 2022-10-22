@@ -16,36 +16,69 @@
             <div class="card">
 
               <div class="card-section">
-                <p> Please enter location </p>
-                <form class="Request" v-on:submit.prevent="doRequest">
-                  <input v-model="Request" type="text" class="Request__input" required placeholder="Enter Location...">
-                  <input type="submit" class="Request__submit" value="Request">
-                </form>
+                 <!-- Search -->
+      <div class="search__form">
+        <form class="search" v-on:submit.prevent="doRequest">
+          <input v-model="location" type="text" class="search__input" required placeholder="Enter Location">
+          <input type="submit" class="search__submit" value="Search">
+        </form>
+      </div>
+      <!--search ends-->
             </div>
             <div class="card-divider">
-                <p>  You entered: {{ location }} </p>
+              <p>   {{ error }} </p>
+          </div>
+            <div class="card-divider">
+                <p>  You entered location: {{ location }}</p>
             </div>
  
                     <div class="card-section">
-                        <p> Temperature </p>
+                        <p> <b>Temperature(4-day)</b> </p>
                     </div>
                     <div class="card-divider">
-                        <p>  {{ temperature }} </p>
+                        <p>  {{ tempDay1 }} </p>
                     </div>
-
-                    <div class="card-section">
-                      <p> Rainfall </p>
+                    <div class="card-divider">
+                      <p>  {{ tempDay2 }} </p>
                   </div>
                   <div class="card-divider">
-                      <p>  {{ rainfall }} </p>
-                  </div>
-
-                  <div class="card-section">
-                    <p> Windspeed </p>
+                    <p>  {{ tempDay3 }} </p>
                 </div>
                 <div class="card-divider">
-                    <p>  {{ windspeed }} </p>
+                  <p>  {{ tempDay4 }} </p>
+              </div>
+
+                    <div class="card-section">
+                      <p> <b>Rainfall(4-day)</b> </p>
+                  </div>
+                  <div class="card-divider">
+                      <p>  {{ rainDay1 }} </p>
+                  </div>
+                  <div class="card-divider">
+                    <p>  {{ rainDay2 }} </p>
                 </div>
+                <div class="card-divider">
+                  <p>  {{ rainDay3 }} </p>
+              </div>
+              <div class="card-divider">
+                <p>  {{ rainDay4 }} </p>
+            </div>
+
+                  <div class="card-section">
+                    <p> <b>Windspeed(4-day)</b> </p>
+                </div>
+                <div class="card-divider">
+                    <p>  {{ windDay1}} </p>
+                </div>
+                <div class="card-divider">
+                  <p>  {{ windDay2}} </p>
+              </div>
+              <div class="card-divider">
+                <p>  {{ windDay3}} </p>
+            </div>
+            <div class="card-divider">
+              <p>  {{ windDay4}} </p>
+          </div>
  
             </div>
         </div>
@@ -54,31 +87,92 @@
 
   <script type="module">
     import { createApp } from 'vue'
-
+    const APIKEY = "d35528beba8c0d7831d42e9ecd046f5f"
   //using ES Module syntax
     const app = createApp({
       data() {
         return {
-            temperature: '11',
-            rainfall: '0.4',
-            windspeed: '24',
-            location: 'Dublin'
+            temperature: null,
+            tempDay1: null,
+            tempDay2: null,
+            tempDay3: null,
+            tempDay4: null,
+            windDay1: null,
+            windDay2: null,
+            windDay3: null,
+            windDay4: null,
+            rainDay1: null,
+            rainDay2: null,
+            rainDay3: null,
+            rainDay4: null,
+            windspeed: null,
+            location: null,
+            error: null
         }
       },
-      functions:{
-        async doRequest() {
+      methods:{
+    async doRequest() {
+      try {
+        //get latitude and longitude by user's city search
+        console.log('Contacting Geocoding API...');
+        const result = this.error = null;
+        console.log('Getting lat/lon...');
+        const geoResponse = await fetch("http://api.openweathermap.org/geo/1.0/direct?q=" + this.location +"&limit=5&appid="+APIKEY);
+        const geoData = await geoResponse.json();
+        //console.log(geoData);
+        const stringifiedGeoData = JSON.stringify(geoData)
+        var parsedGeoData = JSON.parse(stringifiedGeoData);
+        console.log(parsedGeoData);
+        var lat = parsedGeoData[0].lat;
+        var lon = parsedGeoData[0].lon;
+        console.log("lat:" + lat);
+        console.log("lon:" + lon);
+
+        console.log('Contacting Weather API...');
+
+        const weatherResponse = await fetch("https://api.openweathermap.org/data/3.0/onecall?lat="+lat+"&lon="+lon+"&units=metric&exclude=minutely,hourly&appid="+APIKEY);
+        const weatherData = await weatherResponse.json();
+        const stringifiedWeatherData = JSON.stringify(weatherData)
+        var parsedWeatherData = JSON.parse(stringifiedWeatherData);
+        console.log(parsedWeatherData);
+        this.tempDay1 = parsedWeatherData.daily[0].temp.day + "℃"; //[0] refers to day 1 of forecast. do days 1-4
+        this.tempDay2 = parsedWeatherData.daily[1].temp.day + "℃";
+        this.tempDay3 = parsedWeatherData.daily[2].temp.day + "℃";
+        this.tempDay4 = parsedWeatherData.daily[3].temp.day + "℃";
+
+        this.windDay1 = parsedWeatherData.daily[0].wind_speed + "m/s"; 
+        this.windDay2 = parsedWeatherData.daily[1].wind_speed + "m/s";
+        this.windDay3 = parsedWeatherData.daily[2].wind_speed + "m/s";
+        this.windDay4 = parsedWeatherData.daily[3].wind_speed + "m/s";
+
+        
+        this.rainDay1 = parsedWeatherData.daily[0].rain + "mm";
+        this.rainDay2 = parsedWeatherData.daily[0].rain + "mm"; 
+        this.rainDay3 = parsedWeatherData.daily[0].rain + "mm"; 
+        this.rainDay4 = parsedWeatherData.daily[0].rain + "mm";  
+
+        
+
+        //https://pro.openweathermap.org/data/2.5/forecast/hourly?lat={lat}&lon={lon}&appid={API key}
+       
+        //this.temperature = parsedResult.list[1][0] //should give temperature
+        //alert(parsedResult.list[1][0]) 
+      } catch (error) {
+        this.error = error;
+      } finally {
+        this.search = null;
+      }
+    }
+
           //take city input, do geocode
           //save json in same filename1 per request so we dont store every one
           //extract lat and lon from json
-          //results = JSON.parse(json);
+          
           //console.log(results.lat);
           //console.log(results.lon);
           //do weather with lat and lon
           //save json in same filename2 per request so we dont store every one
           //extract temp, rain, wind from json
-          
-        }
-
       }
     }).mount('#app')
   </script>
@@ -99,6 +193,52 @@
     rgba(83, 138, 214, 1) 0%,
     rgba(134, 231, 214, 1) 90%
   );
+}
+
+/* Search */
+.search {
+  padding: 0 2rem;
+  display: grid;
+  grid-template-rows: auto auto;
+}
+
+.search__input {
+  margin-bottom: 1.5rem;
+  background: none;
+  width: 100%;
+  flex: 1;
+  padding: 0.5rem;
+  font-size: 1rem;
+  border: none;
+  border-radius: 5px 5px 0 0;
+  border-bottom: 2px solid #9b9b9b;
+  outline: none;
+  transition: 0.2s ease;
+}
+
+.search__input:focus,
+.search__input:hover {
+  transition: 0.2s ease;
+  border-bottom: 2px solid #00dbde;
+}
+
+.search__submit {
+  border: none;
+  height: 30px;
+  border-radius: 10px;
+  width: 100%;
+  background: #9599e2;
+  transition: 0.1s ease;
+  font-family: 'Roboto', sans-serif;
+  font-size: 16px;
+  margin-bottom: 1rem;
+  transition: 0.1s ease;
+}
+
+.search__submit:hover {
+  transition: 0.2s ease;
+  cursor: pointer;
+  background-color: rgb(121, 170, 206);
 }
 </style>
 
