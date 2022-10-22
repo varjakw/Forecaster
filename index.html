@@ -29,7 +29,10 @@
               <p>   {{ error }} </p>
           </div>
             <div class="card-divider">
-                <p>  You entered location: {{ location }}</p>
+                <p>  You entered location: {{ location }}<br>
+                {{ clothes }}<br>
+                {{ umbrella }} <br>
+                {{ air }}</p>
             </div>
  
                     <div class="card-section">
@@ -79,6 +82,21 @@
             <div class="card-divider">
               <p>  {{ windDay4}} </p>
           </div>
+          <div class="card-section">
+            <p> <b>Air Pollution(4-day)</b> </p>
+        </div>
+        <div class="card-divider">
+          <p>  {{ airDay1}} </p>
+      </div>
+      <div class="card-divider">
+        <p>  {{ airDay2}} </p>
+    </div>
+    <div class="card-divider">
+      <p>  {{ airDay3}} </p>
+  </div>
+  <div class="card-divider">
+    <p>  {{ airDay4}} </p>
+</div>
  
             </div>
         </div>
@@ -92,6 +110,9 @@
     const app = createApp({
       data() {
         return {
+            clothes: null,
+            air: null,
+            umbrella: null,
             temperature: null,
             tempDay1: null,
             tempDay2: null,
@@ -105,7 +126,10 @@
             rainDay2: null,
             rainDay3: null,
             rainDay4: null,
-            windspeed: null,
+            airDay1: null,
+            airDay2: null,
+            airDay3: null,
+            airDay4: null,
             location: null,
             error: null
         }
@@ -119,7 +143,6 @@
         console.log('Getting lat/lon...');
         const geoResponse = await fetch("http://api.openweathermap.org/geo/1.0/direct?q=" + this.location +"&limit=5&appid="+APIKEY);
         const geoData = await geoResponse.json();
-        //console.log(geoData);
         const stringifiedGeoData = JSON.stringify(geoData)
         var parsedGeoData = JSON.parse(stringifiedGeoData);
         console.log(parsedGeoData);
@@ -129,34 +152,81 @@
         console.log("lon:" + lon);
 
         console.log('Contacting Weather API...');
-
         const weatherResponse = await fetch("https://api.openweathermap.org/data/3.0/onecall?lat="+lat+"&lon="+lon+"&units=metric&exclude=minutely,hourly&appid="+APIKEY);
         const weatherData = await weatherResponse.json();
         const stringifiedWeatherData = JSON.stringify(weatherData)
         var parsedWeatherData = JSON.parse(stringifiedWeatherData);
         console.log(parsedWeatherData);
-        this.tempDay1 = parsedWeatherData.daily[0].temp.day + "℃"; //[0] refers to day 1 of forecast. do days 1-4
-        this.tempDay2 = parsedWeatherData.daily[1].temp.day + "℃";
-        this.tempDay3 = parsedWeatherData.daily[2].temp.day + "℃";
-        this.tempDay4 = parsedWeatherData.daily[3].temp.day + "℃";
+
+        var temp1 = parsedWeatherData.daily[0].temp.day; //[0] refers to day 1 of forecast. do days 1-4
+        var temp2 = parsedWeatherData.daily[1].temp.day;
+        var temp3 = parsedWeatherData.daily[2].temp.day;
+        var temp4 = parsedWeatherData.daily[3].temp.day;
+
+        //format with units for display
+        this.tempDay1 = temp1 + "℃"; 
+        this.tempDay2 = temp2 + "℃";
+        this.tempDay3 = temp3 + "℃";
+        this.tempDay4 = temp4 + "℃";
 
         this.windDay1 = parsedWeatherData.daily[0].wind_speed + "m/s"; 
         this.windDay2 = parsedWeatherData.daily[1].wind_speed + "m/s";
         this.windDay3 = parsedWeatherData.daily[2].wind_speed + "m/s";
         this.windDay4 = parsedWeatherData.daily[3].wind_speed + "m/s";
 
+        var rain1 = parsedWeatherData.daily[0].temp.day; //[0] refers to day 1 of forecast. do days 1-4
+        var rain2 = parsedWeatherData.daily[1].temp.day;
+        var rain3 = parsedWeatherData.daily[2].temp.day;
+        var rain4 = parsedWeatherData.daily[3].temp.day;
+
+        this.rainDay1 = rain1 + "mm";
+        this.rainDay2 = rain2 + "mm"; 
+        this.rainDay3 = rain3+ "mm"; 
+        this.rainDay4 = rain4 + "mm"; 
         
-        this.rainDay1 = parsedWeatherData.daily[0].rain + "mm";
-        this.rainDay2 = parsedWeatherData.daily[0].rain + "mm"; 
-        this.rainDay3 = parsedWeatherData.daily[0].rain + "mm"; 
-        this.rainDay4 = parsedWeatherData.daily[0].rain + "mm";  
+        //should you bring umbrella? if there is ANY rain on ANY day
+        if(rain1 != 0 || rain1 != 0 || rain1 != 0 || rain1 != 0){
+          this.umbrella = "You should pack an umbrella just in case";
+        }
+
+        //what clothes should you pack
+        //takes average temp over the 4 days
+        var avgTemp = (temp1+temp2+temp3+temp4)/4;
+        if(avgTemp < 12){
+          this.clothes = "Pack for cold weather";
+        }
+        if(avgTemp > 12 && avgTemp <= 24){
+          this.clothes = "Pack for mild weather";
+        }
+        if(avgTemp > 24){
+          this.clothes = "Pack for hot weather";
+        }
+
+        console.log('Contacting Air Pollution API...');
+        const airResponse = await fetch("http://api.openweathermap.org/data/2.5/air_pollution/forecast?lat="+lat+"&lon="+lon+"&appid="+APIKEY);
+        const airData = await airResponse.json();
+        const stringifiedairData = JSON.stringify(airData)
+        var parsedAirData = JSON.parse(stringifiedairData);
+        console.log(parsedAirData);
 
         
+        var air1 = parsedAirData.list[0].components.pm2_5;
+        var air2 = parsedAirData.list[1].components.pm2_5;
+        var air3 = parsedAirData.list[2].components.pm2_5;
+        var air4 = parsedAirData.list[3].components.pm2_5;
 
-        //https://pro.openweathermap.org/data/2.5/forecast/hourly?lat={lat}&lon={lon}&appid={API key}
+        this.airDay1 = air1 + "μg/m^3";
+        this.airDay2 = air2 + "μg/m^3";
+        this.airDay3 = air3 + "μg/m^3";
+        this.airDay4 = air4 + "μg/m^3";
        
-        //this.temperature = parsedResult.list[1][0] //should give temperature
-        //alert(parsedResult.list[1][0]) 
+
+        if(air1 > 10 || air2 > 10 || air3 > 10 || air4 > 10){
+          this.air = "You should pack a mask due to air pollution";
+        }
+        
+
+    
       } catch (error) {
         this.error = error;
       } finally {
